@@ -1,0 +1,15 @@
+﻿@using INFORCE_.NET_TASK.Models;
+@model URLModel
+
+@{
+    string url = "http://localhost:5167/" + Model.ShortName;
+}
+
+<div class="details-container">
+    <p class="detail-item"><strong>Full URL:</strong> @Model.LongName</p>
+    <p class="detail-item"><strong>Short URL:</strong> @url</p>
+    <p class="detail-item"><strong>Created By:</strong> @Model.Author</p>
+    <p class="detail-item"><strong>Created Date:</strong> @Model.CreatedTime</p>
+    <button type="button" onclick="location.href='@Url.Action("Index", "URL")'">Back</button>
+
+</div>

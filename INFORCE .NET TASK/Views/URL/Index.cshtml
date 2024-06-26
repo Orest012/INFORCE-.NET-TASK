@@ -1,0 +1,70 @@
+﻿@using INFORCE_.NET_TASK.Models;
+@model List<URLModel>
+
+@{
+    URLModel url = new URLModel();
+    int count = 0;
+    bool isLogin = false;
+}
+
+
+@if (ViewBag.Error != "" || ViewBag.Error != null)
+{
+    <p style="color:red">@ViewBag.Error</p>
+}
+
+@if (ViewBag.UserEmail == "" ||  ViewBag.UserEmail == null)
+{
+    <p>Ви не увійшли</p>
+}
+else
+{
+    isLogin = true;
+    <p>@ViewBag.UserEmail</p>
+}
+
+
+@if (isLogin == true) {
+    <form asp-action="AddLink" asp-controller="URL" method="post">
+        <label asp-for="@url.LongName">Enter URL: </label>
+        <input asp-for="@url.LongName" id="longname" type="text" required>
+        <button type="submit" id="AddButton" onclick="AddLink()">Add</button>
+    </form>
+    
+}
+
+
+
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Full name</th>
+            <th>Short name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var num in Model)
+        {
+            count++;
+            string short_url = "http://localhost:5167/" + num.ShortName;
+            <tr>
+                <td>@count</td>
+                <td>
+                    <a href="@num.LongName">@num.LongName</a>
+                </td>
+                <td>
+                    <a href="/@num.ShortName">@short_url</a>
+                </td>
+                <td>
+                    @if (num.Author == ViewBag.UserEmail || ViewBag.UserEmail == "admin@gmail.com")
+                    {
+                        <a href="/Delete/@num.Id">Видалити</a>
+                    }
+                    <a href="/Details/@num.Id">Деталі</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

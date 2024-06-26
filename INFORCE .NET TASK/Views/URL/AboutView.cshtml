@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Description of the URL shortening algorithm";
+}
+
+<title>@ViewData["Title"]</title>
+<div class="container">
+    <div class="main-content">
+        <form method="post" action="/AboutView">
+            @if (ViewBag.UserEmail == "admin@gmail.com"){
+                <textarea id="content" name="content" rows="20" cols="100">@Html.Raw(ViewData["Content"].ToString())</textarea><br>
+                <input type="submit" value="Зберегти зміни">
+            }
+            else
+            {
+                <textarea id="content" name="content" rows="20" cols="100" readonly>@Html.Raw(ViewData["Content"].ToString())</textarea><br>
+            }
+            <button type="button" onclick="location.href='@Url.Action("Index", "URL")'">Back</button>
+
+        </form>
+    </div>
+</div>
